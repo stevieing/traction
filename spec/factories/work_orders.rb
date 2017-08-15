@@ -13,7 +13,14 @@ FactoryGirl.define do
       aliquot { build(:aliquot_fail) }
     end
 
+    factory :work_order_with_qc_proceed do
+      aliquot { build(:aliquot_proceed) }
+      after(:create, &:qc!)
+    end
+
     factory :work_order_for_sequencing do
+      aliquot { build(:aliquot_proceed) }
+      library { create(:library) }
       after(:create, &:library_preparation!)
     end
   end

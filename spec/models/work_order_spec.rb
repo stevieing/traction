@@ -28,7 +28,7 @@ RSpec.describe WorkOrder, type: :model do
     expect(build(:work_order, sequencescape_id: nil)).to_not be_valid
   end
 
-  it 'uuid cannot be updated' do
+  it 'sequencescape_id cannot be updated' do
     work_order = create(:work_order)
     sequencescape_id = work_order.sequencescape_id
     work_order.update_attributes(sequencescape_id: 999)
