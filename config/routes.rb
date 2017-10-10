@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'landing/index'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   resources :work_orders, only: %i[index show]
@@ -14,5 +16,7 @@ Rails.application.routes.draw do
   match 'test_exception_notifier', controller: 'application',
                                    action: 'test_exception_notifier', via: :get
 
-  root 'work_orders#index'
+  # root 'work_orders#index'
+
+  root 'landing#index'
 end

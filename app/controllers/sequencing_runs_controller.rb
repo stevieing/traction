@@ -7,7 +7,12 @@ class SequencingRunsController < ApplicationController
   before_action :set_sequencing_run, only: %i[show]
   before_action :sequencing_runs, only: %i[index]
 
-  def index; end
+  def index
+    respond_to do |format|
+      format.html
+      format.json { render json: @sequencing_runs }
+    end
+  end
 
   def new
     @sequencing_run = SequencingRunForm.new
