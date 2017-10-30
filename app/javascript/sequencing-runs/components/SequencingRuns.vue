@@ -22,6 +22,24 @@
         </tbody>
       </table>
     </div>
+    <div :sequencing-run="sequencing-run">
+      <div>
+        <label for="experiment_name">Experiment Name:</label>
+        <!-- Input -->
+        <input type="text" v-model="sequencing_run.experiment_name"><br>
+        <!-- Validation errors -->
+        <span style="color:red">{{ errors.experiment_name }}</span>
+      </div>
+      <div>
+        <label for="instrument Name">Instrument Name:</label>
+
+        <!-- Input -->
+        <input type="text" v-model="sequencing_run.instrument_name"><br>
+        <!-- Validation errors -->
+        <span style="color:red">{{ errors.instrument_name }}</span>
+      </div>
+      <div><button @click="createSequencingRun">Submit</button></div>
+    </div>
   </div>
 </template>
 
@@ -31,6 +49,10 @@
     data: function() {
       return {
         sequencing_runs: [],
+        sequencing_run: {
+          experiment_name: "",
+          instrument_name: ""
+        },
         errors: {}
       }
     },
@@ -45,8 +67,21 @@
           // error callback
           console.error(response);
         });
+      },
+      createSequencingRun: function () {
+        this.$http.post('/sequencing_runs.json', this.sequencing_run).then(response => {
+
+          // get body data
+          this.errors = {}
+          this.sequencing_runs.push(response.body);
+
+        }, response => {
+          // error callback
+          this.errors = response.body.errors;
+        });
       }
     },
+     
     mounted: function() {
       this.fetchData()
     }

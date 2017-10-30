@@ -16,14 +16,28 @@ class SequencingRunsController < ApplicationController
 
   def new
     @sequencing_run = SequencingRunForm.new
+     respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def create
     @sequencing_run = SequencingRunForm.new
-    if sequencing_run.submit(sequencing_run_params)
-      redirect_to sequencing_run_path(sequencing_run), notice: 'Sequencing run successfully created'
-    else
-      render :new
+    # if sequencing_run.submit(sequencing_run_params)
+    #   redirect_to sequencing_run_path(sequencing_run), notice: 'Sequencing run successfully created'
+    # else
+    #   render :new
+    # end
+
+     respond_to do |format|
+      format.json do 
+        if @sequencing_run.submit(sequencing_run_params)
+          render json: @sequencing_run.sequencing_run
+        else
+          render json: { :errors => @sequencing_run.errors.messages }, status: :unprocessable_entity
+        end
+      end
     end
   end
 

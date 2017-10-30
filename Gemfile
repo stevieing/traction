@@ -91,7 +91,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'travis'
   #displays speed badge for every html page
-  gem 'rack-mini-profiler'
+  # gem 'rack-mini-profiler'
 end
 
 group :deployment do

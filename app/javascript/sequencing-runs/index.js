@@ -18,9 +18,13 @@ if (process.env.NODE_ENV == 'test') {
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  Vue.http.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+
   if ( document.getElementById('sequencing-runs') ) {
     /* The files-list element isn't on all pages. So only initialize our
     * Vue app if we actually find it */
+
+
     var app = new Vue({
       el: '#sequencing-runs',
       render: h => h(SequencingRuns)
