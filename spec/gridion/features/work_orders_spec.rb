@@ -13,7 +13,7 @@ RSpec.feature 'WorkOrders', type: :feature do
 
     aliquot = build(:aliquot_proceed)
 
-    visit qcs_path
+    visit gridion_qcs_path
 
     within("#work_order_#{work_order.id}") do
       click_link 'qc'
@@ -30,7 +30,7 @@ RSpec.feature 'WorkOrders', type: :feature do
   scenario 'QC a work order with invalid attributes' do
     aliquot = build(:aliquot_proceed)
 
-    visit work_orders_path
+    visit gridion_work_orders_path
 
     within("#work_order_#{work_order.id}") do
       click_link 'qc'
@@ -49,7 +49,7 @@ RSpec.feature 'WorkOrders', type: :feature do
     work_order.qc!
     library = build(:library)
 
-    visit library_preparations_path
+    visit gridion_library_preparations_path
 
     within("#work_order_#{work_order.id}") do
       click_link 'library preparation'
@@ -66,7 +66,7 @@ RSpec.feature 'WorkOrders', type: :feature do
     work_order.qc!
     library = build(:library)
 
-    visit work_orders_path
+    visit gridion_work_orders_path
 
     within("#work_order_#{work_order.id}") do
       click_link 'library preparation'

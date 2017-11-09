@@ -16,42 +16,42 @@ RSpec.feature 'SequencingRuns', type: :feature do
   # TODO: We are having to fill in using ids. This is bad and brittle but seems to be the
   # only way as flowcells are added via a table where each field does not have a label.
   scenario 'successful' do
-    visit new_sequencing_run_path
+    visit new_gridion_sequencing_run_path
     fill_in 'Instrument name', with: sequencing_run.instrument_name
 
     within('#flowcell_1') do
-      fill_in :sequencing_run_flowcells_attributes_0_flowcell_id, with: flowcells.first.flowcell_id
+      fill_in :gridion_sequencing_run_flowcells_attributes_0_flowcell_id, with: flowcells.first.flowcell_id
       select work_orders.first.name,
-             from: :sequencing_run_flowcells_attributes_0_work_order_id
+             from: :gridion_sequencing_run_flowcells_attributes_0_work_order_id
     end
 
     within('#flowcell_2') do
-      fill_in :sequencing_run_flowcells_attributes_1_flowcell_id, with: flowcells[1].flowcell_id
+      fill_in :gridion_sequencing_run_flowcells_attributes_1_flowcell_id, with: flowcells[1].flowcell_id
       select work_orders.first.name,
-             from: :sequencing_run_flowcells_attributes_1_work_order_id
+             from: :gridion_sequencing_run_flowcells_attributes_1_work_order_id
     end
 
     within('#flowcell_3') do
-      fill_in :sequencing_run_flowcells_attributes_2_flowcell_id, with: flowcells[2].flowcell_id
+      fill_in :gridion_sequencing_run_flowcells_attributes_2_flowcell_id, with: flowcells[2].flowcell_id
       select work_orders.first.name,
-             from: :sequencing_run_flowcells_attributes_2_work_order_id
+             from: :gridion_sequencing_run_flowcells_attributes_2_work_order_id
     end
 
     within('#flowcell_4') do
-      fill_in :sequencing_run_flowcells_attributes_3_flowcell_id, with: flowcells[3].flowcell_id
+      fill_in :gridion_sequencing_run_flowcells_attributes_3_flowcell_id, with: flowcells[3].flowcell_id
       select work_orders.last.name,
-             from: :sequencing_run_flowcells_attributes_3_work_order_id
+             from: :gridion_sequencing_run_flowcells_attributes_3_work_order_id
     end
 
     within('#flowcell_5') do
-      fill_in :sequencing_run_flowcells_attributes_4_flowcell_id, with: flowcells[4].flowcell_id
+      fill_in :gridion_sequencing_run_flowcells_attributes_4_flowcell_id, with: flowcells[4].flowcell_id
       select work_orders.last.name,
-             from: :sequencing_run_flowcells_attributes_4_work_order_id
+             from: :gridion_sequencing_run_flowcells_attributes_4_work_order_id
     end
 
     click_button 'Create Sequencing run'
     expect(page).to have_content('Sequencing run successfully created')
-    sequencing_run = SequencingRun.last
+    sequencing_run = Gridion::SequencingRun.last
     expect(page).to have_content("experiment name: #{sequencing_run.experiment_name}")
     sequencing_run.flowcells.each do |flowcell|
       expect(page).to have_content(flowcell.flowcell_id)
@@ -59,12 +59,12 @@ RSpec.feature 'SequencingRuns', type: :feature do
   end
 
   scenario 'failure' do
-    visit new_sequencing_run_path
+    visit new_gridion_sequencing_run_path
     fill_in 'Instrument name', with: sequencing_run.instrument_name
 
     within('#flowcell_1') do
       select work_orders.first.name,
-             from: :sequencing_run_flowcells_attributes_0_work_order_id
+             from: :gridion_sequencing_run_flowcells_attributes_0_work_order_id
     end
 
     click_button 'Create Sequencing run'
@@ -73,11 +73,11 @@ RSpec.feature 'SequencingRuns', type: :feature do
 
   scenario 'successful update' do
     sequencing_run = create(:sequencing_run)
-    visit sequencing_runs_path
-    within("#sequencing_run_#{sequencing_run.id}") do
+    visit gridion_sequencing_runs_path
+    within("#gridion_sequencing_run_#{sequencing_run.id}") do
       click_link 'Edit'
     end
-    select SequencingRun.states.keys.first, from: 'State'
+    select Gridion::SequencingRun.states.keys.first, from: 'State'
     fill_in 'Experiment name', with: 'new_name'
     click_button 'Update Sequencing run'
     expect(page).to have_content('Sequencing run successfully updated')
@@ -88,7 +88,7 @@ RSpec.feature 'SequencingRuns', type: :feature do
   scenario 'editing includes existing flowcell work orders' do
     flowcell = create(:flowcell_in_sequencing_run, position: 1)
     sequencing_run = create(:sequencing_run, flowcells: [flowcell])
-    visit edit_sequencing_run_path(sequencing_run)
+    visit edit_gridion_sequencing_run_path(sequencing_run)
 
     within('#flowcell_1') do
       expect(page).to have_content(flowcell.work_order.name)
@@ -98,21 +98,21 @@ RSpec.feature 'SequencingRuns', type: :feature do
   scenario 'can be deleted' do
     flowcell = create(:flowcell_in_sequencing_run, position: 1)
     sequencing_run = create(:sequencing_run, flowcells: [flowcell])
-    visit edit_sequencing_run_path(sequencing_run)
+    visit edit_gridion_sequencing_run_path(sequencing_run)
 
     within('#flowcell_1') do
       select work_orders.first.name,
-             from: :sequencing_run_flowcells_attributes_0_work_order_id
+             from: :gridion_sequencing_run_flowcells_attributes_0_work_order_id
     end
     click_button 'Update Sequencing run'
     expect(page).to have_content('Sequencing run successfully updated')
 
     click_on 'Sequencing Runs'
-    within("#sequencing_run_#{sequencing_run.id}") do
+    within("#gridion_sequencing_run_#{sequencing_run.id}") do
       click_on 'Delete'
     end
     expect(page).to have_content('Sequencing run successfully deleted')
-    expect(SequencingRun.find_by(id: sequencing_run.id)).to be nil
+    expect(Gridion::SequencingRun.find_by(id: sequencing_run.id)).to be nil
     expect(Flowcell.find_by(id: flowcell.id)).to be nil
     expect(work_orders.first.state).to eq 'library_preparation'
   end

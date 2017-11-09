@@ -7,6 +7,6 @@ module ApplicationHelper
   end
 
   def editable_work_order_path(work_order)
-    send("edit_#{work_order.next_state}_path", work_order)
+    send("edit_gridion_#{work_order.next_state}_path", work_order)
   end
 end

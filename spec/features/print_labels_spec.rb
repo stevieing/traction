@@ -9,7 +9,7 @@ RSpec.feature 'Print labels', type: :feature do
 
   scenario 'Can print several tube labels from work orders index page' do
     allow(PMB::PrintJob).to receive(:execute) { true }
-    visit work_orders_path
+    visit gridion_work_orders_path
     checkboxes = page.find_all('input')
     checkboxes[2].click
     checkboxes[3].click
@@ -22,7 +22,7 @@ RSpec.feature 'Print labels', type: :feature do
     allow(PMB::PrintJob).to receive(:execute).and_raise(
       JsonApiClient::Errors::ServerError.new(Rails.env)
     )
-    visit work_orders_path
+    visit gridion_work_orders_path
     checkboxes = page.find_all('input')
     checkboxes[2].click
     checkboxes[3].click
@@ -32,7 +32,7 @@ RSpec.feature 'Print labels', type: :feature do
   end
 
   scenario 'does nothing if no work orders are selected' do
-    visit work_orders_path
+    visit gridion_work_orders_path
     select printers.first.name, from: :printer_name
     click_on 'Print labels'
     expect(page).to have_content('Please select some work orders!')

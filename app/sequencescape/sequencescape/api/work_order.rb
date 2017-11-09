@@ -9,6 +9,7 @@ module Sequencescape
       has_one :study
 
       def self.for_reception
+        
         includes(:source_receptacle)
           .where(order_type: 'traction_grid_ion', state: 'pending')
           .all

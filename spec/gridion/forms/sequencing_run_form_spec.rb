@@ -114,7 +114,7 @@ RSpec.describe SequencingRunForm, type: :model do
     end
 
     context 'completed' do
-      let(:attributes)        { { state: SequencingRun.states[:completed] } }
+      let(:attributes)        { { state: Gridion::SequencingRun.states[:completed] } }
       subject                 { SequencingRunForm.new(sequencing_run) }
 
       it 'updates the sequencing run' do
@@ -153,7 +153,7 @@ RSpec.describe SequencingRunForm, type: :model do
     end
 
     context 'not completed' do
-      let(:attributes)        { { state: SequencingRun.states[:restart] } }
+      let(:attributes)        { { state: Gridion::SequencingRun.states[:restart] } }
       subject                 { SequencingRunForm.new(sequencing_run) }
 
       it 'updates the sequencing run' do

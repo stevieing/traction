@@ -13,7 +13,7 @@ class SequencingRunForm
   delegate_missing_to :sequencing_run
 
   def initialize(sequencing_run = nil)
-    @sequencing_run = sequencing_run || SequencingRun.new
+    @sequencing_run = sequencing_run || Gridion::SequencingRun.new
     @created = self.sequencing_run.new_record?
   end
 
@@ -45,7 +45,7 @@ class SequencingRunForm
   end
 
   def self.model_name
-    ActiveModel::Name.new(SequencingRun)
+    ActiveModel::Name.new(Gridion::SequencingRun)
   end
 
   def persisted?

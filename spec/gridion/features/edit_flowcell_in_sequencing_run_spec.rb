@@ -15,19 +15,20 @@ RSpec.feature 'SequencingRuns', type: :feature do
 
   scenario 'create and edit sequencing run' do
     # create sequencing run with the same sample on two flowcells (sample-1)
-    visit new_sequencing_run_path
+    visit new_gridion_sequencing_run_path
+
     fill_in 'Instrument name', with: sequencing_run.instrument_name
 
     within('#flowcell_1') do
-      fill_in :sequencing_run_flowcells_attributes_0_flowcell_id, with: flowcells.first.flowcell_id
+      fill_in :gridion_sequencing_run_flowcells_attributes_0_flowcell_id, with: flowcells.first.flowcell_id
       select work_orders.first.name,
-             from: :sequencing_run_flowcells_attributes_0_work_order_id
+             from: :gridion_sequencing_run_flowcells_attributes_0_work_order_id
     end
 
     within('#flowcell_2') do
-      fill_in :sequencing_run_flowcells_attributes_1_flowcell_id, with: flowcells[1].flowcell_id
+      fill_in :gridion_sequencing_run_flowcells_attributes_1_flowcell_id, with: flowcells[1].flowcell_id
       select work_orders.first.name,
-             from: :sequencing_run_flowcells_attributes_1_work_order_id
+             from: :gridion_sequencing_run_flowcells_attributes_1_work_order_id
     end
 
     click_button 'Create Sequencing run'
@@ -36,13 +37,13 @@ RSpec.feature 'SequencingRuns', type: :feature do
     # edit sequencing run
     # changed sample on the second flowcell
     # now sample-1 is on the first flowcell and sample-2 is on the second flowcell
-    sequencing_run = SequencingRun.last
-    visit edit_sequencing_run_path(sequencing_run)
+    sequencing_run = Gridion::SequencingRun.last
+    visit edit_gridion_sequencing_run_path(sequencing_run)
 
     within('#flowcell_2') do
-      fill_in :sequencing_run_flowcells_attributes_1_flowcell_id, with: flowcells[1].flowcell_id
+      fill_in :gridion_sequencing_run_flowcells_attributes_1_flowcell_id, with: flowcells[1].flowcell_id
       select work_orders.last.name,
-             from: :sequencing_run_flowcells_attributes_1_work_order_id
+             from: :gridion_sequencing_run_flowcells_attributes_1_work_order_id
     end
 
     click_button 'Update Sequencing run'
@@ -55,10 +56,10 @@ RSpec.feature 'SequencingRuns', type: :feature do
 
     # removed one flowcell from the sequencing run
     # now flowcell 1 is empty, flowcell 2 has sample-2
-    visit edit_sequencing_run_path(sequencing_run)
+    visit edit_gridion_sequencing_run_path(sequencing_run)
 
     within('#flowcell_1') do
-      check :sequencing_run_flowcells_attributes_0__destroy
+      check :gridion_sequencing_run_flowcells_attributes_0__destroy
     end
 
     click_button 'Update Sequencing run'
@@ -70,10 +71,10 @@ RSpec.feature 'SequencingRuns', type: :feature do
     # now in flowcell 2, I change sample-2 to sample-1
     # as a result work_order with sample 2 should go to 'library preparation state'
     # work_order with sample-1 should go to 'sequencing' state
-    visit edit_sequencing_run_path(sequencing_run)
+    visit edit_gridion_sequencing_run_path(sequencing_run)
     within('#flowcell_2') do
       select work_orders.first.name,
-             from: :sequencing_run_flowcells_attributes_1_work_order_id
+             from: :gridion_sequencing_run_flowcells_attributes_1_work_order_id
     end
     click_button 'Update Sequencing run'
     expect(page).to have_content('Sequencing run successfully updated')

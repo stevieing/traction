@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171010091413) do
+ActiveRecord::Schema.define(version: 20171108125206) do
 
   create_table "aliquots", force: :cascade do |t|
     t.string "name"
@@ -43,6 +43,14 @@ ActiveRecord::Schema.define(version: 20171010091413) do
     t.index ["work_order_id"], name: "index_flowcells_on_work_order_id"
   end
 
+  create_table "gridion_sequencing_runs", force: :cascade do |t|
+    t.string "instrument_name"
+    t.integer "state", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "experiment_name"
+  end
+
   create_table "libraries", force: :cascade do |t|
     t.string "kit_number"
     t.string "ligase_batch_number"
@@ -59,14 +67,6 @@ ActiveRecord::Schema.define(version: 20171010091413) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "sequencing_runs", force: :cascade do |t|
-    t.string "instrument_name"
-    t.integer "state", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "experiment_name"
   end
 
   create_table "tubes", force: :cascade do |t|

@@ -18,7 +18,7 @@
               <td><%= work_order.id %></td>
               <td><%= work_order.name %></td>
               <td><%= work_order.state %></td>
-              <td><%= link_to 'Show', work_order_path(work_order) %></td>
+              <td><%= link_to 'Show', gridion_work_order_path(work_order) %></td>
               <% if work_order.editable? %>
                 <td><%= link_to work_order.next_state.to_s.humanize.downcase, editable_work_order_path(work_order) %></td>
               <% else %>
