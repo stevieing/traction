@@ -15,4 +15,8 @@ Rails.application.routes.draw do
                                    action: 'test_exception_notifier', via: :get
 
   root 'work_orders#index'
+
+  namespace :pacbio do
+    resources :sequencing_runs
+  end
 end

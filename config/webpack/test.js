@@ -1,6 +1,3 @@
-// Note: You must restart bin/webpack-dev-server for changes to take effect
-
-const merge = require('webpack-merge')
-const sharedConfig = require('./shared.js')
-
-module.exports = merge(sharedConfig, {})
+const environment = require('./environment')
+environment.plugins.get('Manifest').opts.writeToFileEmit = process.env.NODE_ENV !== 'test'
+module.exports = environment.toWebpackConfig()
