@@ -13,7 +13,8 @@
           <tbody>
             <tr v-for="row in rows">
               <td class="success">{{ row }}</td>
-              <well  v-for="column in columns" :row="row" :column="column"></well>
+              <well  v-for="column in columns" :row="row" :column="column" v-bind:key="row.concat(column)">
+              </well>
             </tr>
           </tbody>
         </table>

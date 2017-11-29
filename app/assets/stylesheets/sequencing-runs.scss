@@ -4,3 +4,22 @@
     font-weight: bold;
   }
 }
+
+.selected {
+  background-color: gray;
+}
+
+.hidden {
+  display: none;
+}
+
+form.metadata {
+  border: 1px solid;
+  margin-left: 5%;
+  overflow: hidden;
+  position: absolute;
+  z-index: 10;
+  transition: height .5s ease, width .5s ease .5s;
+  fieldset {
+  }
+}
