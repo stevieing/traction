@@ -25,6 +25,9 @@
       },
       hide (event) {
         this.hidden = true
+      },
+      show (event) {
+        this.hidden = false
       }
     },
     computed: {

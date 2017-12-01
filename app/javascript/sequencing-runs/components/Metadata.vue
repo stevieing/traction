@@ -9,10 +9,6 @@
           <input type="text" id="comment" v-model="sample.comment">
         </li>
         <li>
-          <label for="size-selection"> Size Selection: </label>
-          <input type="checkbox" id="size-selection" v-model="sample.sizeSelection">
-        </li>
-        <li>
           <label for="collection-time">Collection Time: </label>
           <input type="text" id="collection-time" v-model="sample.collectionTime">
         </li>
@@ -40,6 +36,7 @@
     methods: {
       onSubmit () {
         this.$emit('hide')
+        this.$parent.$emit('add', this.sample)
       }
     },
     computed: {

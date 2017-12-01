@@ -1,10 +1,10 @@
 // app/javascript/sequencing-runs/components/Samples.vue
 
 <template>
-  <div id='samples' class="col-xs-3">
+  <div id='samples' class="col-xs-3" >
     <div>{{ msg }}</div>
-    <ul class="list-unstyled" >
-      <sample v-for="sample in samples" :sample="sample" :ref="sample.name" v-bind:key="sample.id"></sample>
+    <ul class="list-unstyled" draggable="true" @dragover.prevent @drop="onDrop">
+      <sample v-for="sample in samples" :sample="sample" :ref="sample.id" v-bind:key="sample.id"></sample>
     </ul>
   </div>
 </template>
@@ -22,12 +22,15 @@
         msg: 'Samples'
       }
     },
+    methods: {
+      onDrop (event) {
+        event.preventDefault()
+        var sample = JSON.parse(event.dataTransfer.getData("sample"))
+        this.$refs[sample.id][0].show()
+      }
+    },
     components: {
       Sample
-    }
-    ,
-    mounted () {
-      console.log(this.$refs.Sample1)
     }
   }
 </script>
