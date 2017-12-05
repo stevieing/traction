@@ -1,7 +1,7 @@
 // app/javascript/sequencing-runs/components/Sample.vue
 
 <template>
-  <li draggable="true" @dragstart="drag" @dragend="hide" :id="sample.name"  class='sample' v-bind:class="classObject" v-on:click="selected = !selected">
+  <li draggable="true" @dragstart="drag" @dragend="hide" :id="sample.name"  class='sample list-group-item card-block' v-bind:class="classObject" v-on:click="active = !active">
     {{ sample.name }}
   </li>
 </template>
@@ -13,7 +13,7 @@
     data () {
       return {
         msg: 'Sample',
-        selected: false,
+        active: false,
         hidden: false
       }
     },
@@ -33,7 +33,7 @@
     computed: {
       classObject () {
         return {
-          selected: this.selected,
+          active: this.active,
           hidden: this.hidden
         }
       }

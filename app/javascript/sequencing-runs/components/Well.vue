@@ -7,14 +7,14 @@
       <div v-html="sample.comment"></div>
       <div v-html="sample.collectionTime"></div>
       <div v-html="sample.automationParameters"></div>
-      <metadata :sample="sample" v-on:hide="hideMetadata" v-on:add="addMetadata" v-bind:class="{ hidden: metadataHidden }"></metadata>
+      <sample-metadata :sample="sample" v-on:hide="hideMetadata" v-on:add="addMetadata" v-bind:class="{ hidden: metadataHidden }"></sample-metadata>
     </div>
   </td>
 </template>
 
 <script>
 
-  import Metadata from '../components/Metadata'
+  import SampleMetadata from '../components/SampleMetadata'
 
   export default {
     name: 'Well',
@@ -70,7 +70,7 @@
       }
     },
     components: {
-      Metadata
+      SampleMetadata
     }
   }
 </script>

@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 
 import Vue from 'vue'
-import SequencingRuns from './components/SequencingRuns.vue'
+import SequencingRun from './components/SequencingRun.vue'
 import VueResource from 'vue-resource';
 
 Vue.use(VueResource);
@@ -20,14 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   Vue.http.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 
-  if ( document.getElementById('sequencing-runs') ) {
+  if ( document.getElementById('sequencing-run') ) {
     /* The files-list element isn't on all pages. So only initialize our
     * Vue app if we actually find it */
 
 
     var app = new Vue({
-      el: '#sequencing-runs',
-      render: h => h(SequencingRuns)
+      el: '#sequencing-run',
+      render: h => h(SequencingRun)
     });
   }
 })

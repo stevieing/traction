@@ -3,6 +3,12 @@
     background-color: #e1e0df;
     font-weight: bold;
   }
+
+  height: 80%;
+}
+
+.sequencing-runs {
+  width: 100%;
 }
 
 .selected {
@@ -16,16 +22,67 @@
 form.metadata {
   border: 1px solid;
   margin-left: 5%;
+  width: 300px;
+  padding: 5px;
   overflow: hidden;
   position: absolute;
+  background-color: white;
+  opacity: 0.8;
   z-index: 10;
   transition: height .5s ease, width .5s ease .5s;
-  fieldset {
+
+  label, input, button {
+    font-size: 10px;
   }
 }
 
-form.sequencing-run {
+form.sequencing-run-metadata {
+  border: 1px solid gray;
+  width: 100%;
+
   label, input, button {
     font-size: 12px;
   }
+}
+
+#samples {
+  height: 600px;
+  overflow: scroll;
+  padding-top: 20px;
+  font-size: 0.8em;
+  ul {
+    width: 80%;
+  }
+}
+
+#sequencing-run {
+  margin-top: 10px;
+}
+
+.table-curved {
+    border-collapse: separate;
+    border: solid #ddd 1px;
+    border-radius: 6px;
+    border-left: 0px;
+    border-top: 0px;
+}
+.table-curved > thead:first-child > tr:first-child > th {
+    border-bottom: 0px;
+    border-top: solid #ddd 1px;
+}
+.table-curved td, .table-curved th {
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+.table-curved > :first-child > :first-child > :first-child {
+    border-top-left-radius: 6px;
+}
+.table-curved > :first-child > :first-child > :last-child {
+    border-top-right-radius: 6px;
+}
+.table-curved > :last-child > :last-child > :first-child {
+    border-bottom-left-radius: 6px;
+}
+.table-curved > :last-child > :last-child > :last-child {
+    border-bottom-right-radius: 6px;
 }

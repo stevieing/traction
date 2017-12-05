@@ -1,9 +1,8 @@
 // app/javascript/sequencing-runs/components/Samples.vue
 
 <template>
-  <div id='samples' class="col-xs-3" >
-    <div>{{ msg }}</div>
-    <ul class="list-unstyled" draggable="true" @dragover.prevent @drop="onDrop">
+  <div id='samples' class="row">
+    <ul class="list-group card" draggable="true" @dragover.prevent @drop="onDrop">
       <sample v-for="sample in samples" :sample="sample" :ref="sample.id" v-bind:key="sample.id"></sample>
     </ul>
   </div>
