@@ -56,6 +56,11 @@
     methods: {
       save (event) {
         alert("saved!")
+        for (var index in this.$children) {
+          if (Object.keys(this.$children[index].sample).length > 0) {
+            console.log(this.$children[index].sample)
+          }
+        }
       },
       addMetadata (sample) {
         for (var index in this.$children) {
@@ -65,7 +70,6 @@
               child.addMetadata(sample)
             }
           }
-          
         }
       }
     }

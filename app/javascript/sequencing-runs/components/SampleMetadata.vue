@@ -6,15 +6,15 @@
       <fieldset>
         <div class="form-group">
           <label for="comment">Comment: </label>
-            <input class="form-control" type="text" id="comment" v-model="sample.comment">
+            <input class="form-control" type="text" id="comment" v-model="sample.metadata.comment">
         </div>
         <div class="form-group">
           <label for="collection-time">Collection Time: </label>
-            <input class="form-control" type="text" id="collection-time" v-model="sample.collectionTime">
+            <input class="form-control" type="text" id="collection-time" v-model="sample.metadata.collectionTime">
         </div>
         <div class="form-group">
           <label for="automation-parameters">Automation Parameters: </label>
-            <input class="form-control" type="text" id="automation-parameters" v-model="sample.automationParameters">
+            <input class="form-control" type="text" id="automation-parameters" v-model="sample.metadata.automationParameters">
         
         </div>
         <div>

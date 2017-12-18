@@ -4,9 +4,9 @@
   <td @dragover.prevent @drop="onDrop" @contextmenu="showMetadata" class='well' v-on:click="selected = !selected" v-bind:class="classObject">
     <div draggable="true" @dragstart="drag" @dragend="removeSample" >
       <div v-html="sample.name"></div>
-      <div v-html="sample.comment"></div>
-      <div v-html="sample.collectionTime"></div>
-      <div v-html="sample.automationParameters"></div>
+      <div v-html="sample.metadata.comment"></div>
+      <div v-html="sample.metadata.collectionTime"></div>
+      <div v-html="sample.metadata.automationParameters"></div>
       <sample-metadata :sample="sample" v-on:hide="hideMetadata" v-on:add="addMetadata" v-bind:class="{ hidden: metadataHidden }"></sample-metadata>
     </div>
   </td>
@@ -22,7 +22,7 @@
     data () {
       return {
         msg: 'Well',
-        sample: {},
+        sample: {"metadata": {}},
         metadataHidden: true,
         selected: false
       }
@@ -54,9 +54,9 @@
         this.metadataHidden = true
       },
       addMetadata (sample) {
-        this.sample.comment = sample.comment
-        this.sample.collectionTime = sample.collectionTime
-        this.sample.automationParameters = sample.automationParameters
+        this.sample.metadata.comment = sample.metadata.comment
+        this.sample.metadata.collectionTime = sample.metadata.collectionTime
+        this.sample.metadata.automationParameters = sample.metadata.automationParameters
       }
     },
     computed: {
